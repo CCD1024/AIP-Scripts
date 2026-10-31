@@ -6,5 +6,9 @@
       <title>SHORGB-AIP 1.01</title>
       <description><p>Six-source SII/Ha/OIII/R/G/B matrix mixer. English/French interface, 18 coefficients with exact-step buttons, preview and normalized output DATA histogram, full-resolution RGB output.</p><p>Version 1.01: CCD1024 script submenu and AIP icon. Script by Philippe Bernhard.</p></description>
     </package>
+    <package fileName="packages/SHOLuminance-AIP-0.6.1.zip" sha1="0933ad47ad41126ac3cabdcf297bb3bffacaee15" type="script" releaseDate="20261031">
+      <title>SHOLuminance-AIP 0.6.1</title>
+      <description><p>Synthetic monochrome luminance from SII, Ha and OIII. Weighted mean, Lighten and Screen, independent source histogram feet, interactive preview and colored source/final histogram overlays.</p><p>English/French interface. Menu: Script &gt; CCD1024 &gt; SHOLuminance-AIP. Original AIP icon. Script by Philippe Bernhard.</p></description>
+    </package>
   </platform>
 </xri>
