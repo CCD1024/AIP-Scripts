@@ -1,0 +1,276 @@
+SHOLuminance-AIP — Version 0.6.1
+Philippe Bernhard
+
+Pour PixInsight 1.9.4 ou ultérieur, moteur V8.
+Vérifié dans PixInsight 1.9.6 sur Mac avec des images synthétiques.
+
+INSTALLATION DEPUIS GITHUB — V0.6.1
+
+Adresse du dépôt de mises à jour PixInsight :
+https://ccd1024.github.io/AIP-Scripts/
+
+Dans PixInsight : Resources > Updates > Manage Repositories,
+ajouter cette adresse si elle n’est pas déjà présente, puis rechercher
+les mises à jour. Installer SHOLuminance-AIP 0.6.1 et redémarrer PixInsight
+si demandé. Le script se trouve ensuite dans :
+Script > CCD1024 > SHOLuminance-AIP.
+
+Le paquet installe le script, son icône AIP.svg et cette notice dans
+src/scripts/CCD1024/SHOLuminance-AIP, sous le dossier de PixInsight.
+Le script et le paquet sont non signés.
+
+Installation manuelle : extraire l’archive d’installation manuelle,
+conserver SHOLuminance-AIP.js et AIP.svg dans le même dossier, puis ajouter
+ce dossier avec Script > Feature Scripts. Pour un lancement direct,
+utiliser Script > Execute Script File et sélectionner SHOLuminance-AIP.js.
+
+NOUVEAUTÉ V0.6.0 — HISTOGRAMMES SUPERPOSÉS
+
+Le menu Afficher du panneau Histogramme propose deux modes supplémentaires :
+- SII + Ha + OIII superposés : les trois sources sur le même graphique.
+- SII + Ha + OIII + finale : les trois sources et la luminance finale.
+
+Couleurs, rappelées par la légende dans le graphique :
+- SII : rouge.
+- Ha : vert.
+- OIII : bleu.
+- Luminance finale : blanc.
+
+Les choix individuels Luminance finale, Ha, OIII et SII restent disponibles.
+Le sélecteur comporte donc six choix. Le choix est mémorisé dans les
+préférences et les icônes de processus.
+
+Les courbes superposées utilisent le même axe horizontal de valeurs réelles
+et la même échelle verticale des effectifs. Aucune courbe n’est amplifiée
+indépendamment des autres. Le zoom, le champ Début et les échelles Linéaire,
+Logarithme, Racine carrée et Carré s’appliquent à toutes les courbes ensemble.
+
+Les sources sont affichées après réglage de leur pied et éventuel facteur
+commun Screen, avant les poids et la combinaison. La courbe finale est celle
+du mélange après remise à l’échelle de sortie, avant STF, comme en mode
+Luminance finale seul. Si l’axe des sources dépasse [0,1], les valeurs finales
+sont réparties sur ce même axe sans écrêtage et sans perdre de pixels.
+
+Une source absente est omise et signalée sous le graphique. Une source à poids
+nul est affichée brute et signalée comme telle. Les couleurs restent associées
+aux bons filtres, même lorsqu’une courbe manque.
+
+Les courbes se mettent à jour pendant les réglages de pied ou de poids.
+Changer seulement l’histogramme ne modifie ni le grand aperçu ni le mélange.
+Les histogrammes restent indépendants de la STF.
+
+CORRECTION V0.5.1 — ACTIVATION DES PIEDS SÉPARÉS
+
+La case Utiliser des pieds séparés suffit maintenant à activer les trois
+réglages SII, Ha et OIII. Elle est indépendante de la case du pied commun.
+
+- Cochée : les trois curseurs sont actifs et leurs corrections sont appliquées
+  dans l’aperçu, les histogrammes des sources et l’image finale.
+- Le panneau avancé peut être replié : les pieds séparés restent actifs.
+- La case Utiliser un pied commun est grisée pendant le mode séparé.
+- Décocher Utiliser des pieds séparés revient au mode commun seulement si
+  sa case avait été cochée ; sinon aucune correction de pied n’est appliquée.
+- Pour désactiver toute correction, décocher les pieds séparés puis le pied
+  commun. Les valeurs restent mémorisées.
+
+Cette règle s’applique aussi aux préférences et icônes existantes avec
+pieds séparés cochés et pied commun décoché.
+
+SÉLECTION DES HISTOGRAMMES
+
+Un sélecteur Afficher dans le panneau Histogramme propose :
+Luminance finale, Ha, OIII et SII.
+
+- Luminance finale : histogramme du mélange après remise à l’échelle,
+  avant STF, comme dans la version précédente.
+- Ha / OIII / SII : histogramme de la source sélectionnée après correction
+  de son pied et éventuel facteur commun Screen, avant ses poids et avant
+  la combinaison. Cela permet de suivre directement les réglages avancés
+  de pied SII, Ha et OIII.
+
+Le grand aperçu reste celui de la luminance finale. Le choix d’histogramme
+n’affecte ni le mélange ni la création de l’image finale.
+Il est conservé dans les préférences et les icônes de processus.
+Les anciens réglages s’ouvrent par défaut sur Luminance finale.
+
+Les courbes des sources partagent un même axe de valeurs réelles pour
+faciliter leur comparaison. Cet axe couvre au moins [0,1] et s’élargit
+si des sources corrigées contiennent des valeurs négatives ou supérieures
+à 1 : aucune accumulation artificielle au bord n’est créée par un écrêtage.
+Il n’y a pas de normalisation individuelle des courbes sources.
+
+Le zoom horizontal, le champ Début et l’échelle verticale restent disponibles
+pour les quatre choix. Début est exprimé dans les unités de l’axe affiché.
+Les histogrammes sont calculés sur les données réduites de l’aperçu.
+Les réglages de STF ne modifient pas les histogrammes.
+
+Une source à poids nul est affichée brute, sans correction de pied,
+avec une indication explicite, car elle est exclue du mélange.
+Une source absente ou incompatible donne un histogramme vide accompagné
+d’un message. Préparer / rafraîchir après avoir changé les images.
+
+RAPPEL DES RÉGLAGES AVANCÉS
+
+Un panneau Réglages avancés permet de régler séparément Pied SII, Pied Ha
+et Pied OIII, avant les poids et la combinaison. Chacun a son curseur,
+sa saisie numérique et ses boutons − / + au pas de 0,0001.
+
+Le réglage commun reste disponible dans l’interface principale. Les anciens
+réglages et icônes conservent ce fonctionnement ; les nouvelles cibles séparées
+sont initialisées à partir de leur pied commun mémorisé.
+
+Ordre des opérations :
+Sources → pieds communs ou séparés → poids / gains / opacités
+→ Moyenne, Lighten ou Screen → remise à l’échelle de sortie si nécessaire
+→ histogramme → STF d’affichage facultative.
+
+Les images originales restent intactes : les corrections sont appliquées
+uniquement aux données utilisées pour le calcul de la luminance.
+
+DÉMARRAGE
+
+1. Ouvrir des images monochromes SII, Ha et OIII déjà alignées, de mêmes
+   dimensions et au même stade de traitement.
+2. Ouvrir SHOLuminance-AIP_v0_6_1.js avec Script > Execute Script File.
+3. Sélectionner les sources, la combinaison et leur stade de traitement.
+4. Cliquer sur Préparer / rafraîchir.
+5. Cocher Réglages avancés dans le panneau Mixage.
+   Le panneau avancé apparaît sous l’aperçu, à droite.
+6. Cocher Utiliser des pieds séparés : cela suffit pour activer les trois pieds.
+   Régler Pied SII, Pied Ha et Pied OIII. Le pied commun est grisé.
+7. Ajuster les poids puis cliquer sur Créer la luminance.
+
+Pour utiliser une seule cible pour les trois sources, laisser les pieds séparés
+décochés et cocher Utiliser un pied commun dans le panneau principal.
+
+Le bouton Copier le pied commun vers les trois sources remplit les trois
+réglages avec la valeur commune actuelle. Les curseurs séparés permettent
+ensuite de les affiner indépendamment.
+
+Décocher Réglages avancés replie le panneau SANS désactiver les pieds séparés.
+La mention Réglages avancés (pieds séparés) rappelle ce mode dans l’interface
+principale. Pour revenir au pied commun, ouvrir le panneau, décocher
+Utiliser des pieds séparés et cocher Utiliser un pied commun si nécessaire.
+Pour désactiver toute correction, laisser les deux cases décochées.
+Les valeurs restent mémorisées.
+
+Un curseur à zéro exclut sa source, qui peut rester non sélectionnée.
+L’alignement concerne les sources effectivement utilisées dans le mélange.
+Au moins une source doit contribuer.
+
+RÉGLAGE DES PIEDS DES SOURCES
+
+Mode commun :
+
+Pour chaque source utilisée, le script estime le pied par le percentile 0,1 %
+de son image réduite. Il calcule un décalage indépendant pour que les trois
+pieds estimés atteignent une même valeur commune AVANT les poids.
+
+Exemple, sans intervention de la protection :
+Pieds estimés : SII = 0,0200 ; Ha = 0,0800 ; OIII = 0,0500.
+Pied commun demandé : 0,0050.
+Décalages : SII = −0,0150 ; Ha = −0,0750 ; OIII = −0,0450.
+Les trois sources ont ensuite le même pied estimé à 0,0050.
+Les poids et la combinaison sont appliqués après ces décalages.
+
+Mode séparé :
+Chaque source a sa propre cible. Par exemple, les valeurs 0,0100 pour SII,
+0,0200 pour Ha et 0,0300 pour OIII demandent trois pieds distincts avant
+les poids. Modifier Pied Ha ne change ni la cible SII, ni la cible OIII.
+Les valeurs séparées sont conservées lors d’un retour au mode commun,
+d’un changement de combinaison, de langue ou d’un repli du panneau.
+
+La cible commune initiale et les trois cibles séparées initiales valent 0,0050.
+La plage de chaque réglage va de 0,0000 à 0,5000,
+avec un pas de 0,0001 pour le curseur et les boutons − / +.
+Valider une valeur saisie au clavier avec Entrée.
+
+Protection des minima :
+Les minima sont mesurés sur les pixels à pleine résolution.
+- Mode commun : si nécessaire, le script relève la cible de toutes les sources
+  ensemble pour préserver leur pied commun.
+- Mode séparé : chaque cible est protégée indépendamment. Le script ne relève
+  pas les deux autres cibles lorsqu’une source demande une protection.
+
+Chaque source conserve au moins 0,0001 avant une éventuelle remise à l’échelle
+commune en Screen. La protection reste active avec une cible demandée à zéro.
+Les pieds effectifs peuvent donc être plus hauts que les valeurs demandées.
+
+Les pieds effectifs SII / Ha / OIII sont indiqués dans la barre d’état.
+La console indique après export, pour chaque source, sa cible, son pied effectif,
+son décalage et l’intervention éventuelle de la protection.
+
+Les préférences et icônes mémorisent les cibles communes et séparées,
+le mode choisi et l’ouverture du panneau avancé. Réinitialiser rétablit
+0,0050 pour les quatre valeurs, désactive les corrections, rétablit le mode
+commun et replie le panneau, en conservant les sources et la langue.
+
+COMBINAISONS ET POIDS
+
+Moyenne / Somme : curseurs de 0 à 300 %.
+Normalisation activée :
+L = (wS*S + wH*H + wO*O) / (wS + wH + wO).
+Normalisation désactivée :
+L = wS*S + wH*H + wO*O.
+
+Lighten / Maximum : gains de 0 à 300 %.
+L = max(gS*S, gH*H, gO*O).
+La somme des gains n’est pas normalisée.
+
+Screen / Écran : opacités de 0 à 100 %.
+L = 1 − (1 − aS*S)*(1 − aH*H)*(1 − aO*O).
+La somme des opacités n’est pas normalisée.
+À 100 / 100 / 100, il s’agit du Screen standard des trois sources.
+
+Dans ces formules, S, H et O désignent les sources après leur alignement
+facultatif. Chaque mode conserve ses propres curseurs et préréglages.
+Choisir un préréglage puis cliquer sur Appliquer.
+
+CAS PARTICULIER DU SCREEN
+
+Sans alignement, les sources actives doivent être dans [0,1].
+Un message explicite signale toute valeur hors plage.
+
+Avec alignement, les sources sont d’abord décalées vers leurs pieds
+protégés, communs ou séparés. Si l’une de leurs valeurs dépasse 1, le script applique un SEUL
+facteur commun à toutes les sources alignées pour les ramener dans [0,1].
+Cette opération préserve leur pied commun, ou les proportions entre les pieds
+séparés, et ne coupe aucune haute lumière.
+Les pixels originaux ne sont pas modifiés.
+Chaque pied effectif devient : cible protégée de la source × facteur commun.
+Les opacités et la combinaison Screen interviennent ensuite.
+
+AFFICHAGE ET SORTIE
+
+Sources linéaires : active par défaut la STF de l’aperçu.
+Sources non linéaires : désactive par défaut la STF pour un affichage direct.
+Ce choix est déclaratif et ne transforme pas les pixels.
+La STF peut ensuite être réglée manuellement, avec trois niveaux.
+Aucune STF n’est appliquée à la sortie.
+
+Le sélecteur Afficher choisit l’histogramme de la luminance finale ou
+de Ha, OIII et SII. La courbe finale suit la remise à l’échelle de l’aperçu,
+avant STF. Les courbes sources suivent la correction de leur pied, avant
+les poids et la combinaison, sur un axe commun qui s’étend si nécessaire.
+Les pourcentages indiquent les valeurs < 0 et > 1 : avant remise à l’échelle
+pour le mélange final, ou dans les données de la source pour les autres choix.
+
+L’aperçu combine des sources réduites par moyenne de blocs. En Lighten
+et Screen, il reste une estimation lorsque les sources sont réduites.
+Le maximum de Lighten tient compte des maxima à pleine résolution,
+après chaque décalage de source.
+
+La sortie est une nouvelle image monochrome 32 bits flottants, à pleine
+résolution. Si le mélange dépasse [0,1], une translation puis une remise
+à l’échelle si nécessaires le ramènent dans cette plage sans écrêtage.
+Le pied de sortie dépend des gains, de la combinaison et de cette remise
+à l’échelle : il n’est pas contraint aux cibles des SOURCES.
+
+Glisser le triangle bleu sur le bureau PixInsight pour mémoriser les réglages.
+Français / English change la langue en les conservant.
+Réinitialiser rétablit les valeurs par défaut en conservant les sources
+sélectionnées et la langue. Préparer ensuite l’aperçu à nouveau.
+
+Si les images sources sont modifiées pendant que le script est ouvert,
+cliquer sur Préparer / rafraîchir. Lors de l’export avec l’alignement actif,
+les données des sources sont relues pour mesurer les corrections actuelles.
