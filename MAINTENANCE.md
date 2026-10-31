@@ -12,6 +12,8 @@
 4. Mettre à jour le README et le CHANGELOG.
 5. Vérifier l'archive, les chemins déployés et l'installation avant de diffuser la mise à jour.
 
+SHOLuminance-AIP est conservé dans `src/SHOLuminance-AIP/`, avec `AIP.svg` à côté du fichier JavaScript. Son archive installe ces fichiers sous `src/scripts/CCD1024/SHOLuminance-AIP/`. Les directives `#feature-id SHOLuminance_AIP : CCD1024 > SHOLuminance-AIP` et `#feature-icon AIP.svg` définissent le sous-menu et l'icône ; elles doivent rester cohérentes avec l'archive. Sa notice est incluse dans le même dossier.
+
 Les utilisateurs conservent la même adresse pour tous les scripts du dépôt. Les numéros de version et les archives sont propres à chaque script. Ne pas modifier une archive déjà publiée sous le même nom.
 
 ## Signatures

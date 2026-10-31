@@ -2,7 +2,19 @@
 
 **Scripts PixInsight de Philippe Bernhard**
 
-Dépôt commun pour les scripts AIP. Premier script disponible : **SHORGB-AIP 1.01**. Les autres scripts seront ajoutés avec leurs propres versions et archives, tout en conservant une seule adresse de mises à jour PixInsight.
+Dépôt commun pour les scripts AIP. Scripts disponibles : **SHORGB-AIP 1.01** et **SHOLuminance-AIP 0.6.1**. Les autres scripts seront ajoutés avec leurs propres versions et archives, tout en conservant une seule adresse de mises à jour PixInsight.
+
+## SHOLuminance-AIP 0.6.1
+
+Crée une luminance monochrome à partir des images SII, Ha et OIII : moyenne pondérée, Lighten ou Screen. Interface français/anglais, aperçu interactif, pieds communs ou séparés dans un panneau avancé et histogrammes individuels ou superposés en trois couleurs avec luminance finale en blanc.
+
+- Menu après installation : **Script > CCD1024 > SHOLuminance-AIP**.
+- Icône : fichier AIP.svg fourni avec le script.
+- [Code et icône](src/SHOLuminance-AIP/) · [Notice](src/SHOLuminance-AIP/Lisez-moi.txt).
+- Installation par le dépôt PixInsight ci-dessous. Pour l'installation manuelle, conserver le script et son icône dans le même dossier, puis ajouter ce dossier avec **Script > Feature Scripts**.
+
+
+## SHORGB-AIP 1.01
 
 SHORGB-AIP compose une image RGB à partir de six sources possibles : SII, Ha, OIII, R, G et B.
 L'interface est disponible en français et en anglais.

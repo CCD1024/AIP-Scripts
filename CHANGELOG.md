@@ -1,5 +1,14 @@
 # Historique AIP-Scripts
 
+## SHOLuminance-AIP 0.6.1 - 31 octobre 2026
+
+- Première distribution de SHOLuminance-AIP par le dépôt de mises à jour PixInsight commun.
+- Menu **Script > CCD1024 > SHOLuminance-AIP**, avec l'icône AIP.svg fournie par Philippe Bernhard.
+- Moyenne pondérée, Lighten et Screen, aperçu monochrome et sortie pleine résolution.
+- Pieds de source communs ou indépendants ; pieds séparés actifs dès que leur case est cochée.
+- Histogrammes individuels et superpositions SII rouge / Ha vert / OIII bleu, avec finale blanche facultative.
+- Paramètres des versions 0.x conservés. Vérifications dans PixInsight 1.9.6 sur macOS.
+
 ## 1.01 - 31 octobre 2026
 
 - Rangement sous **Script > CCD1024 > SHORGB-AIP**.
