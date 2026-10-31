@@ -1,5 +1,12 @@
 # Historique AIP-Scripts
 
+## 1.01 - 31 octobre 2026
+
+- Rangement sous **Script > CCD1024 > SHORGB-AIP**.
+- Ajout de l’icône AIP fournie par Philippe Bernhard.
+- Icône installée avec les ressources du script.
+- Calcul du mixage et réglages enregistrés inchangés.
+
 ## 1.00 - 31 octobre 2026
 
 Première version numérotée 1.00, reprenant la V0.2.28.
