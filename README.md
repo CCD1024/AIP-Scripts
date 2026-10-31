@@ -1,0 +1,65 @@
+# AIP-Scripts
+
+**Scripts PixInsight de Philippe Bernhard**
+
+Dépôt commun pour les scripts AIP. Premier script disponible : **SHORGB-AIP 1.00**. Les autres scripts seront ajoutés avec leurs propres versions et archives, tout en conservant une seule adresse de mises à jour PixInsight.
+
+SHORGB-AIP compose une image RGB à partir de six sources possibles : SII, Ha, OIII, R, G et B.
+L'interface est disponible en français et en anglais.
+
+## Fonctions
+
+- Matrice de 18 coefficients de 0 à 3,000 (0 à 300 %), avec boutons -/+ au pas de 0,001.
+- Preview réduit et réglages interactifs.
+- Préréglages, base Auto SHO et paramètres personnalisés.
+- Alignement protégé du pied des histogrammes et offsets RGB grossiers/fins.
+- Linked STF, Unlinked STF, affichage brut et niveaux Low/Medium/High.
+- Histogramme DATA après normalisation de sortie, avant STF.
+- Image finale en pleine résolution avec remise à l'échelle commune RGB sans écrêtage.
+
+## Installer manuellement
+
+1. Télécharger `src/SHORGB-AIP.js` en conservant son extension `.js`.
+2. Dans PixInsight, ouvrir **Script > Execute Script File** et sélectionner le fichier.
+3. Pour l'ajouter au menu Script, utiliser **Script > Feature Scripts**, puis ajouter le dossier du script.
+
+Le script demande PixInsight 1.9.4 ou ultérieur avec le moteur V8. Les dernières vérifications ont été effectuées sous PixInsight 1.9.6 sur macOS. Les autres systèmes n'ont pas été testés dans cette session.
+
+## Installer par le dépôt PixInsight
+
+Adresse à ajouter dans PixInsight :
+
+```text
+https://ccd1024.github.io/AIP-Scripts/
+```
+
+[Page d'installation](https://ccd1024.github.io/AIP-Scripts/) | [Code source](src/SHORGB-AIP.js)
+
+Dans PixInsight : **Resources > Updates > Manage Repositories**, ajouter l'URL publiée, puis vérifier les mises à jour. Redémarrer PixInsight si demandé.
+
+Le dossier `docs/` contient les fichiers du serveur de mises à jour. Le fichier `updates.xri` déclare l'archive à installer, son empreinte et les versions de PixInsight ciblées.
+
+## Démarrer
+
+1. Choisir les sources utiles et un preset, ou utiliser Auto SHO.
+2. Préparer/rafraîchir le preview.
+3. Ajuster les coefficients, le pied et les offsets.
+4. Contrôler les données et créer l'image finale.
+
+Unlinked STF change l'équilibre apparent des couleurs uniquement dans le preview. Le STF n'est pas appliqué à l'image finale.
+L'histogramme du preview est une estimation issue de pixels moyennés, avec la normalisation calculée depuis les extrema en pleine résolution. Après création, l'histogramme compte tous les pixels de sortie.
+
+## English
+
+SHORGB-AIP is a six-source SII/Ha/OIII/R/G/B matrix mixer for PixInsight. The interface supports English and French. It provides 18 independent coefficients, live preview, protected histogram-foot alignment, coarse/fine RGB offsets and full-resolution output. A common RGB normalization keeps output within [0,1] without hard clipping. STF affects preview display only.
+
+For manual installation, download `src/SHORGB-AIP.js` and run it with **Script > Execute Script File**. For installation through the PixInsight updater, add `https://ccd1024.github.io/AIP-Scripts/` in **Resources > Updates > Manage Repositories**.
+
+## Crédits / Credits
+
+Script : Philippe Bernhard.
+L'en-tête du code conserve les références d'inspiration de son architecture de preview.
+
+## Signature
+
+Cette version du script et du dépôt est non signée. Une signature certifiée PixInsight pourra être ajoutée à une prochaine publication.
