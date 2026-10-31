@@ -1,11 +1,12 @@
 #engine v8
 
-#feature-id    SHORGB_AIP : Utilities > SHORGB-AIP
+#feature-id    SHORGB_AIP : CCD1024 > SHORGB-AIP
+#feature-icon  @script_icons_dir/AIP.svg
 #feature-info  Interactive six-source SII/Ha/OIII/R/G/B matrix mixer for PixInsight 1.9.4+. \
    18 independent coefficients, live preview with Linked STF / Unlinked STF / Linear and Low / Medium / High STF levels, RGB/L histogram, clipping monitor, positive histogram-foot alignment, independent coarse and fine signed R/G/B offsets and full-resolution output. English/French interface.
 
 /*
- * SHORGB-AIP 1.00
+ * SHORGB-AIP 1.01
  * Philippe Bernhard
  * PixInsight >= 1.9.4 / PJSR V8
  *
@@ -19,7 +20,7 @@
 CoreApplication.ensureMinimumVersion( 1, 9, 4 );
 
 var TITLE = "SHORGB-AIP";
-var VERSION = "1.00";
+var VERSION = "1.01";
 // Preserve existing preferences and process-icon parameters after the rename.
 var INSTANCE_KEY = "NB_RGB_Matrix_Mixer_configuration";
 var SETTINGS_KEY = "NB_RGB_Matrix_Mixer/settings_v02";
@@ -1249,7 +1250,7 @@ constructor()
 
    this.titleLabel = new Label( this );
    this.titleLabel.useRichText = true;
-   this.titleLabel.text = "<b>SHORGB-AIP 1.00</b> — Philippe Bernhard — SII · Ha · OIII · R · G · B → RGB";
+   this.titleLabel.text = "<b>SHORGB-AIP 1.01</b> — Philippe Bernhard — SII · Ha · OIII · R · G · B → RGB";
 
    this.languageLabel = new Label( this );
    this.languageLabel.text = "Langue / Language :";
