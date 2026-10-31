@@ -2,9 +2,9 @@
 <xri version="1.0">
   <description><p>AIP-Scripts - PixInsight scripts by Philippe Bernhard.</p></description>
   <platform os="all" arch="noarch" version="1.9.4:1.9.6">
-    <package fileName="packages/SHORGB-AIP-1.00.zip" sha1="485644f19a8a2350eb52401bee1f8ef22cffbbd2" type="script" releaseDate="20261031">
-      <title>SHORGB-AIP 1.00</title>
-      <description><p>Six-source SII/Ha/OIII/R/G/B matrix mixer. English/French interface, 18 coefficients with exact-step buttons, preview and normalized output DATA histogram, full-resolution RGB output.</p><p>Script by Philippe Bernhard.</p></description>
+    <package fileName="packages/SHORGB-AIP-1.01.zip" sha1="f8cef97b8be3d6ea3d7614b837bc9a08168e98a6" type="script" releaseDate="20261031">
+      <title>SHORGB-AIP 1.01</title>
+      <description><p>Six-source SII/Ha/OIII/R/G/B matrix mixer. English/French interface, 18 coefficients with exact-step buttons, preview and normalized output DATA histogram, full-resolution RGB output.</p><p>Version 1.01: CCD1024 script submenu and AIP icon. Script by Philippe Bernhard.</p></description>
     </package>
   </platform>
 </xri>
