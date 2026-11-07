@@ -12,13 +12,13 @@
 4. Mettre à jour le README et le CHANGELOG.
 5. Vérifier l'archive, les chemins déployés et l'installation avant de diffuser la mise à jour.
 
-SHOLuminance-AIP est conservé dans `src/SHOLuminance-AIP/`, avec `AIP.svg` à côté du fichier JavaScript. Son archive installe ces fichiers sous `src/scripts/CCD1024/SHOLuminance-AIP/`. Les directives `#feature-id SHOLuminance_AIP : CCD1024 > SHOLuminance-AIP` et `#feature-icon AIP.svg` définissent le sous-menu et l'icône ; elles doivent rester cohérentes avec l'archive. Sa notice est incluse dans le même dossier.
+Le code seul est déployé dans src/scripts. Les icônes SVG sont déployées dans rsc/icons/script/<identifiant>/ avec #feature-icon @script_icons_dir/AIP.svg ; les notices et mentions tierces dans doc/scripts/<nom-du-script>/. Le texte MIT de Badassium238 1.2.3 doit rester intégré aux deux fichiers JavaScript et à toutes les archives.
 
 Les utilisateurs conservent la même adresse pour tous les scripts du dépôt. Les numéros de version et les archives sont propres à chaque script. Ne pas modifier une archive déjà publiée sous le même nom.
 
 ## Signatures
 
-La première version est non signée. Pour signer une prochaine publication : utiliser une identité de développeur certifiée PixInsight, signer le script, ajouter sa signature `.xsgn` dans l'archive, mettre à jour l'empreinte de cette archive dans `updates.xri`, puis signer le manifeste en dernier. Ne jamais publier les clés privées de signature.
+La première version est non signée. Pour signer une prochaine publication : utiliser une identité de développeur certifiée PixInsight, signer le script, ajouter sa signature `.xsgn` dans une nouvelle archive versionnée, remplacer l’entrée précédente du script dans `updates.xri` avec la nouvelle empreinte (une seule entrée active par script), puis signer le manifeste en dernier. Ne jamais publier les clés privées de signature.
 
 ## Versions ciblées
 

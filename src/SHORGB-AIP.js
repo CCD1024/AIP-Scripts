@@ -6,21 +6,50 @@
    18 independent coefficients, live preview with Linked STF / Unlinked STF / Linear and Low / Medium / High STF levels, RGB/L histogram, clipping monitor, positive histogram-foot alignment, independent coarse and fine signed R/G/B offsets and full-resolution output. English/French interface.
 
 /*
- * SHORGB-AIP 1.01
+ * SHORGB-AIP 1.02
  * Philippe Bernhard
  * PixInsight >= 1.9.4 / PJSR V8
  *
  * Original implementation for a 6 -> 3 narrowband/RGB matrix mixer.
- * Preview architecture inspired by the general PJSR pattern used in
- * Badassium238 (MIT, Jacques Pouyaud): reduced working image, ScrollBox
- * preview, bitmap rendering and delayed refresh after slider changes.
+ * PreviewBox and helper functions reuse and adapt Badassium238 1.2.3 code.
  * No Badassium238 colour-separation algorithm is reused here.
+ */
+
+/*
+ * Code reused and adapted from Badassium238 1.2.3 by Jacques Pouyaud:
+ * PreviewBox, findView(), validId() and errText(). These components are
+ * reused code, not merely architectural inspiration. Preview painting and
+ * range handling have been adapted for SHORGB-AIP and SHOLuminance-AIP.
+ * Upstream: https://github.com/jps-34/Badassium238
+ * The following MIT notice applies to these reused portions:
+ * 
+ * MIT License
+ * 
+ * Copyright (c) 2026 Jacques Pouyaud
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 
 CoreApplication.ensureMinimumVersion( 1, 9, 4 );
 
 var TITLE = "SHORGB-AIP";
-var VERSION = "1.01";
+var VERSION = "1.02";
 // Preserve existing preferences and process-icon parameters after the rename.
 var INSTANCE_KEY = "NB_RGB_Matrix_Mixer_configuration";
 var SETTINGS_KEY = "NB_RGB_Matrix_Mixer/settings_v02";
@@ -1250,7 +1279,7 @@ constructor()
 
    this.titleLabel = new Label( this );
    this.titleLabel.useRichText = true;
-   this.titleLabel.text = "<b>SHORGB-AIP 1.01</b> — Philippe Bernhard — SII · Ha · OIII · R · G · B → RGB";
+   this.titleLabel.text = "<b>SHORGB-AIP 1.02</b> — Philippe Bernhard — SII · Ha · OIII · R · G · B → RGB";
 
    this.languageLabel = new Label( this );
    this.languageLabel.text = "Langue / Language :";

@@ -1,12 +1,12 @@
 #engine v8
 
 #feature-id SHOLuminance_AIP : CCD1024 > SHOLuminance-AIP
-#feature-icon AIP.svg
+#feature-icon @script_icons_dir/AIP.svg
 #feature-info Combine three monochrome SII/Ha/OIII images into a full-resolution synthetic luminance. \
    Weighted mean, Lighten and Screen; linear/nonlinear source selector; live grayscale preview, display-only STF, DATA histogram, FR/EN and process instances.
 
 /*
- * SHOLuminance-AIP 0.6.1 — Philippe Bernhard
+ * SHOLuminance-AIP 0.6.2 — Philippe Bernhard
  * PixInsight >= 1.9.4 / PJSR V8.
  * Adapted from SHORGB-AIP 0.2.26: block-based image access, preview zoom,
  * histogram and median/MAD/MTF display. Independent settings and instance keys.
@@ -26,8 +26,39 @@
  * Weights express the user's chosen signal contributions, not measured SNR weights.
  */
 
+/*
+ * Code reused and adapted from Badassium238 1.2.3 by Jacques Pouyaud:
+ * PreviewBox, findView(), validId() and errText(). These components are
+ * reused code, not merely architectural inspiration. Preview painting and
+ * range handling have been adapted for SHORGB-AIP and SHOLuminance-AIP.
+ * Upstream: https://github.com/jps-34/Badassium238
+ * The following MIT notice applies to these reused portions:
+ * 
+ * MIT License
+ * 
+ * Copyright (c) 2026 Jacques Pouyaud
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 CoreApplication.ensureMinimumVersion( 1, 9, 4 );
-var TITLE = "SHOLuminance-AIP", VERSION = "0.6.1";
+var TITLE = "SHOLuminance-AIP", VERSION = "0.6.2";
 var INSTANCE_KEY = "SHOLuminance_AIP_configuration_v01";
 var SETTINGS_KEY = "SHOLuminance_AIP/settings_v01";
 var LANGUAGE_KEY = "SHOLuminance_AIP/language";

@@ -1,25 +1,28 @@
-SHOLuminance-AIP — Version 0.6.1
+SHOLuminance-AIP — Version 0.6.2
 Philippe Bernhard
 
 Pour PixInsight 1.9.4 ou ultérieur, moteur V8.
 Vérifié dans PixInsight 1.9.6 sur Mac avec des images synthétiques.
 
-INSTALLATION DEPUIS GITHUB — V0.6.1
+INSTALLATION DEPUIS GITHUB — V0.6.2
 
 Adresse du dépôt de mises à jour PixInsight :
 https://ccd1024.github.io/AIP-Scripts/
 
 Dans PixInsight : Resources > Updates > Manage Repositories,
 ajouter cette adresse si elle n’est pas déjà présente, puis rechercher
-les mises à jour. Installer SHOLuminance-AIP 0.6.1 et redémarrer PixInsight
+les mises à jour. Installer SHOLuminance-AIP 0.6.2 et redémarrer PixInsight
 si demandé. Le script se trouve ensuite dans :
 Script > CCD1024 > SHOLuminance-AIP.
 
-Le paquet installe le script, son icône AIP.svg et cette notice dans
-src/scripts/CCD1024/SHOLuminance-AIP, sous le dossier de PixInsight.
+Le code est installé dans src/scripts/CCD1024/SHOLuminance-AIP,
+l’icône dans rsc/icons/script/SHOLuminance_AIP, et la notice ainsi que
+les mentions tierces dans doc/scripts/SHOLuminance-AIP.
 Le script et le paquet sont non signés.
 
-Installation manuelle : extraire l’archive d’installation manuelle,
+Installation manuelle : télécharger
+https://ccd1024.github.io/AIP-Scripts/manual/SHOLuminance-AIP-0.6.2-manual.zip
+et extraire cette archive dans un dossier personnel de votre choix ;
 conserver SHOLuminance-AIP.js et AIP.svg dans le même dossier, puis ajouter
 ce dossier avec Script > Feature Scripts. Pour un lancement direct,
 utiliser Script > Execute Script File et sélectionner SHOLuminance-AIP.js.
@@ -131,7 +134,8 @@ DÉMARRAGE
 
 1. Ouvrir des images monochromes SII, Ha et OIII déjà alignées, de mêmes
    dimensions et au même stade de traitement.
-2. Ouvrir SHOLuminance-AIP_v0_6_1.js avec Script > Execute Script File.
+2. Ouvrir Script > CCD1024 > SHOLuminance-AIP après installation,
+   ou SHOLuminance-AIP.js avec Script > Execute Script File.
 3. Sélectionner les sources, la combinaison et leur stade de traitement.
 4. Cliquer sur Préparer / rafraîchir.
 5. Cocher Réglages avancés dans le panneau Mixage.
@@ -274,3 +278,34 @@ sélectionnées et la langue. Préparer ensuite l’aperçu à nouveau.
 Si les images sources sont modifiées pendant que le script est ouvert,
 cliquer sur Préparer / rafraîchir. Lors de l’export avec l’alignement actif,
 les données des sources sont relues pour mesurer les corrections actuelles.
+
+CRÉDITS ET LICENCE DU CODE RÉUTILISÉ
+
+Code reused and adapted from Badassium238 1.2.3 by Jacques Pouyaud:
+PreviewBox, findView(), validId() and errText(). These components are
+reused code, not merely architectural inspiration. Preview painting and
+range handling have been adapted for SHORGB-AIP and SHOLuminance-AIP.
+Upstream: https://github.com/jps-34/Badassium238
+The following MIT notice applies to these reused portions:
+
+MIT License
+
+Copyright (c) 2026 Jacques Pouyaud
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

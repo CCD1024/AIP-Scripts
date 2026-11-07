@@ -2,13 +2,13 @@
 <xri version="1.0">
   <description><p>AIP-Scripts - PixInsight scripts by Philippe Bernhard.</p></description>
   <platform os="all" arch="noarch" version="1.9.4:1.9.6">
-    <package fileName="packages/SHORGB-AIP-1.01.zip" sha1="f8cef97b8be3d6ea3d7614b837bc9a08168e98a6" type="script" releaseDate="20261031">
-      <title>SHORGB-AIP 1.01</title>
-      <description><p>Six-source SII/Ha/OIII/R/G/B matrix mixer. English/French interface, 18 coefficients with exact-step buttons, preview and normalized output DATA histogram, full-resolution RGB output.</p><p>Version 1.01: CCD1024 script submenu and AIP icon. Script by Philippe Bernhard.</p></description>
+    <package fileName="packages/SHORGB-AIP-1.02.zip" sha1="fd93c7ae59aae432cee0bf0607129b57176790db" type="script" releaseDate="20261107">
+      <title>SHORGB-AIP 1.02</title>
+      <description><p>Six-source SII/Ha/OIII/R/G/B matrix mixer. English/French interface, 18 coefficients with exact-step buttons, preview and normalized output DATA histogram, full-resolution RGB output.</p><p>Version 1.02: MIT notices and installation documentation corrected. Script by Philippe Bernhard.</p></description>
     </package>
-    <package fileName="packages/SHOLuminance-AIP-0.6.1.zip" sha1="0933ad47ad41126ac3cabdcf297bb3bffacaee15" type="script" releaseDate="20261031">
-      <title>SHOLuminance-AIP 0.6.1</title>
-      <description><p>Synthetic monochrome luminance from SII, Ha and OIII. Weighted mean, Lighten and Screen, independent source histogram feet, interactive preview and colored source/final histogram overlays.</p><p>English/French interface. Menu: Script &gt; CCD1024 &gt; SHOLuminance-AIP. Original AIP icon. Script by Philippe Bernhard.</p></description>
+    <package fileName="packages/SHOLuminance-AIP-0.6.2.zip" sha1="afaa276a76dce3133187c099f7fd2209e58b0c97" type="script" releaseDate="20261107">
+      <title>SHOLuminance-AIP 0.6.2</title>
+      <description><p>Synthetic monochrome luminance from SII, Ha and OIII. Weighted mean, Lighten and Screen, independent source histogram feet, interactive preview and colored source/final histogram overlays.</p><p>English/French interface. Menu: Script &gt; CCD1024 &gt; SHOLuminance-AIP. Icon and documentation installed in the standard resource directories. Badassium238 1.2.3 components credited with their MIT notice. Script by Philippe Bernhard.</p></description>
     </package>
   </platform>
 </xri>

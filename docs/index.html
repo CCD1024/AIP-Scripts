@@ -1,15 +1,18 @@
 <!doctype html>
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AIP-Scripts - Philippe Bernhard</title></head>
-<body><h1>AIP-Scripts</h1><p>Dépôt commun de scripts PixInsight par Philippe Bernhard.</p><h2>SHORGB-AIP 1.01</h2><p>Script PixInsight de Philippe Bernhard. Interface Français / English.</p>
+<body><h1>AIP-Scripts</h1><p>Dépôt commun de scripts PixInsight par Philippe Bernhard.</p><h2>SHORGB-AIP 1.02</h2><p>Script PixInsight de Philippe Bernhard. Interface Français / English.</p>
 <p>Mixage de six sources SII, Ha, OIII, R, G et B avec 18 coefficients, preview et sortie en pleine résolution.</p>
-<h2>SHOLuminance-AIP 0.6.1</h2>
+<h2>SHOLuminance-AIP 0.6.2</h2>
 <p>Crée une luminance monochrome à partir de SII, Ha et OIII avec Moyenne, Lighten ou Screen. Pieds séparés dans les réglages avancés et histogrammes superposés en couleurs, avec luminance finale facultative.</p>
 <p>Menu : <strong>Script &gt; CCD1024 &gt; SHOLuminance-AIP</strong>, avec l'icône AIP.</p>
-<p><a href="packages/SHOLuminance-AIP-0.6.1.zip">Paquet PixInsight 0.6.1</a> · <a href="https://github.com/CCD1024/AIP-Scripts/tree/main/src/SHOLuminance-AIP">Code, icône et notice</a></p>
+<p><a href="packages/SHOLuminance-AIP-0.6.2.zip">Paquet PixInsight 0.6.2</a> · <a href="https://github.com/CCD1024/AIP-Scripts/tree/main/src/SHOLuminance-AIP">Code</a></p>
 <h2>Installer dans PixInsight</h2><p>Dans Resources &gt; Updates &gt; Manage Repositories, ajouter :</p><pre>https://ccd1024.github.io/AIP-Scripts/</pre><p>Puis rechercher les mises à jour et redémarrer PixInsight si demandé.</p>
-<p>Le serveur fournit <a href="updates.xri">updates.xri</a> et <a href="packages/SHORGB-AIP-1.01.zip">l'archive de la version 1.01</a>.</p>
-<p>Cette version du script et du dépôt est non signée. Une signature certifiée PixInsight pourra être ajoutée à une prochaine publication.</p>
+<p>Le serveur fournit <a href="updates.xri">updates.xri</a> et <a href="packages/SHORGB-AIP-1.02.zip">l'archive de la version 1.02</a>.</p>
+<p>Les scripts et le dépôt sont actuellement non signés. La demande de Philippe Bernhard pour une identité de développeur certifié PixInsight (CPD), CCD1024, est en cours. Après approbation, il pourra signer ses scripts et ce dépôt avec cette identité.</p>
 <p>Après installation : <strong>Script &gt; CCD1024 &gt; SHORGB-AIP</strong>, avec l’icône AIP.</p><h2>Utilisation rapide</h2><ol><li>Sélectionner les sources utiles et choisir un preset.</li><li>Préparer / Rafraîchir le preview.</li><li>Ajuster les coefficients, le pied et les offsets.</li><li>Créer et enregistrer l'image finale.</li></ol>
 <p>Le STF ne modifie que l'affichage. Unlinked STF ne représente pas la balance des couleurs de l'image finale.</p>
 <p>PixInsight 1.9.4 à 1.9.6 avec V8. Vérifications effectuées sur 1.9.6 pour macOS.</p>
+<h2>Installation manuelle</h2><p>Extraire l’archive dans un dossier personnel, puis l’ajouter avec Script &gt; Feature Scripts &gt; Add.</p>
+<p><a href="manual/SHORGB-AIP-1.02-manual.zip">SHORGB-AIP 1.02 — archive manuelle</a> · <a href="manual/SHOLuminance-AIP-0.6.2-manual.zip">SHOLuminance-AIP 0.6.2 — archive manuelle</a></p>
+<p>Les scripts réutilisent et adaptent PreviewBox et des fonctions auxiliaires de Badassium238 1.2.3 par Jacques Pouyaud (MIT). Le copyright et la permission MIT sont inclus dans les scripts et leurs paquets.</p>
 </body></html>
