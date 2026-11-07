@@ -6,7 +6,7 @@
    18 independent coefficients, live preview with Linked STF / Unlinked STF / Linear and Low / Medium / High STF levels, RGB/L histogram, clipping monitor, positive histogram-foot alignment, independent coarse and fine signed R/G/B offsets and full-resolution output. English/French interface.
 
 /*
- * SHORGB-AIP 1.02
+ * SHORGB-AIP 1.03
  * Philippe Bernhard
  * PixInsight >= 1.9.4 / PJSR V8
  *
@@ -49,7 +49,7 @@
 CoreApplication.ensureMinimumVersion( 1, 9, 4 );
 
 var TITLE = "SHORGB-AIP";
-var VERSION = "1.02";
+var VERSION = "1.03";
 // Preserve existing preferences and process-icon parameters after the rename.
 var INSTANCE_KEY = "NB_RGB_Matrix_Mixer_configuration";
 var SETTINGS_KEY = "NB_RGB_Matrix_Mixer/settings_v02";
@@ -155,6 +155,11 @@ function safeNumber( x, d )
    return ( typeof x == "number" && isFinite( x ) ) ? x : d;
 }
 
+function coefficientValue( value )
+{
+   return Math.round(clamp(safeNumber(value,0),0,3)*100)/100;
+}
+
 function roundedOffset( value, limit, precision )
 {
    var scale = Math.pow( 10, precision );
@@ -211,8 +216,7 @@ function loadSettings()
                          Parameters.has( INSTANCE_KEY );
       var s = fromInstance ? Parameters.getString( INSTANCE_KEY ) :
                              Settings.read( SETTINGS_KEY, DataType.String );
-      if ( s == null || s.length == 0 )
-         return;
+      if ( s == null || s.length == 0 ) return;
       var o = JSON.parse( s );
       if ( o.language == "fr" || o.language == "en" ) P.language = o.language;
       P.showAdvanced = !!o.showAdvanced;
@@ -228,7 +232,7 @@ function loadSettings()
             P.weights = [ [], [], [] ];
             for ( var r = 0; r < 3; ++r )
                for ( var c = 0; c < 6; ++c )
-                  P.weights[r][c] = clamp( safeNumber( o.weights[r][c], DEFAULTS.weights[r][c] ), 0, 3 );
+                  P.weights[r][c] = coefficientValue(safeNumber(o.weights[r][c],DEFAULTS.weights[r][c]));
          }
       }
       P.mode = Math.round( safeNumber( o.mode, P.mode ) );
@@ -608,7 +612,7 @@ function calculateAutoSHO( cache )
    var coefficients = [], weights = [ [0,0,0,0,0,0], [0,0,0,0,0,0], [0,0,0,0,0,0] ];
    for ( var c = 0; c < 3; ++c )
    {
-      coefficients[c] = Math.round( clamp( reference/stats[c].signal, 0.2, 2.5 )*1000 )/1000;
+      coefficients[c] = coefficientValue(clamp(reference/stats[c].signal,0.2,2.5));
       weights[c][c] = coefficients[c];
    }
    return { weights: weights, coefficients: coefficients, statistics: stats };
@@ -1272,14 +1276,16 @@ constructor()
    this.relaunch = false;
    this.relaunchState = null;
    this.rendering = false;
+   this.previewRefreshing = false;
+   this.previewPending = false;
    this.checkingPreviewRange = false;
-   this.onClose = function() { return !self.rendering && !self.checkingPreviewRange; };
+   this.onClose = function() { return !self.rendering && !self.checkingPreviewRange && !self.previewRefreshing; };
    this.compactSize = null;
    this.advancedExpanded = false;
 
    this.titleLabel = new Label( this );
    this.titleLabel.useRichText = true;
-   this.titleLabel.text = "<b>SHORGB-AIP 1.02</b> — Philippe Bernhard — SII · Ha · OIII · R · G · B → RGB";
+   this.titleLabel.text = "<b>SHORGB-AIP 1.03</b> — Philippe Bernhard — SII · Ha · OIII · R · G · B → RGB";
 
    this.languageLabel = new Label( this );
    this.languageLabel.text = "Langue / Language :";
@@ -1727,35 +1733,37 @@ constructor()
          nc.label.minWidth = this.font.width( "OIII" ) + 8;
          nc.setReal( true );
          nc.setRange( 0.0, 3.0 );
-         nc.setPrecision( 3 );
+         nc.setPrecision( 2 );
          nc.enableFixedPrecision( true );
          nc.sliderValueToControl = function( tick )
          {
-            return clamp( Math.round(tick), 0, 3000 )/1000;
+            return clamp( Math.round(tick), 0, 300 )/100;
          };
          nc.controlValueToSlider = function( value )
          {
-            return clamp( Math.round(value*1000), 0, 3000 );
+            return clamp( Math.round(value*100), 0, 300 );
          };
-         nc.slider.setRange( 0, 3000 );
+         nc.slider.setRange( 0, 300 );
          nc.slider.stepSize = 1;
          nc.slider.pageSize = 1;
          nc.setValue( P.weights[o][s] );
          nc.onValueUpdated = function( value )
          {
             if ( self.updating ) return;
+            value = coefficientValue(value);
             P.weights[o][s] = value;
+            if ( nc.value != value ) nc.setValue(value);
             self.updateSums();
             self.updatePresetFromMatrix();
-            self.schedulePreview();
+            self.schedulePreview(true);
          };
-         // Integer thousandths keep every click exact, including after typing.
+         // Integer hundredths keep every click exact, including after typing.
          nc.stepCoefficient = function( direction )
          {
             if ( self.updating || self.rendering || self.checkingPreviewRange ) return;
             this.evaluate();
-            var tick = clamp( Math.round(this.value*1000) + (direction < 0 ? -1 : 1), 0, 3000 );
-            var value = tick/1000;
+            var tick = clamp( Math.round(this.value*100) + (direction < 0 ? -1 : 1), 0, 300 );
+            var value = tick/100;
             if ( value != this.value )
             {
                this.setValue( value );
@@ -1769,15 +1777,15 @@ constructor()
             button.setScaledFixedSize( 22, 22 );
             button.toolTip = (direction < 0 ? tr("Diminuer","Decrease") : tr("Augmenter","Increase")) +
                " " + SOURCE_NAMES[s] + " → " + OUTPUT_NAMES[o] +
-               tr(" de 0,001 par clic (0 à 3,000)."," by 0.001 per click (0 to 3.000).");
+               tr(" de 0,01 par clic (0 à 3,00)."," by 0.01 per click (0 to 3.00).");
             button.onClick = function() { nc.stepCoefficient(direction); };
             nc.sizer.add(button);
             if ( direction < 0 ) nc.decreaseButton = button;
             else nc.increaseButton = button;
          }
          nc.slider.toolTip = tr(
-            "Glisser pour un réglage rapide ; les boutons − et + donnent un pas exact de 0,001 par clic.",
-            "Drag for a quick adjustment; the − and + buttons give one exact 0.001 step per click." );
+            "Glisser pour un réglage rapide ; les boutons − et + donnent un pas exact de 0,01 par clic.",
+            "Drag for a quick adjustment; the − and + buttons give one exact 0.01 step per click." );
          this.weightControls[o][s] = nc;
          vs.add( nc );
       }
@@ -1832,7 +1840,7 @@ constructor()
          self.setMatrix( result.weights, false );
          self.refreshControlsFromP();
          self.refreshPreview();
-         self.statusLabel.text = format( tr( "Auto SHO : S %.3f · H %.3f · O %.3f — pied cible 0,0500", "Auto SHO: S %.3f · H %.3f · O %.3f — foot target 0.0500" ),
+         self.statusLabel.text = format( tr( "Auto SHO : S %.2f · H %.2f · O %.2f — pied cible 0,0500", "Auto SHO: S %.2f · H %.2f · O %.2f — foot target 0.0500" ),
                                         result.coefficients[0], result.coefficients[1], result.coefficients[2] );
       }
       catch ( e )
@@ -2016,8 +2024,16 @@ constructor()
    // Deferred preview --------------------------------------------------------
    this.timer = new Timer;
    this.timer.periodic = false;
-   this.timer.interval = 0.25;
-   this.timer.onTimeout = function() { self.refreshPreview(); };
+   this.timer.interval = 0.12;
+   this.timer.onTimeout = function()
+   {
+      if ( self.previewRefreshing || self.rendering || self.checkingPreviewRange )
+      {
+         self.previewPending = true;
+         return;
+      }
+      self.refreshPreview();
+   };
 
    this.updateSums();
    this.updatePresetFromMatrix();
@@ -2195,7 +2211,7 @@ updateSums()
       var sum = 0;
       for ( var s = 0; s < 6; ++s )
          sum += P.weights[o][s];
-      this.sumLabels[o].text = "Σ = " + sum.toFixed(3);
+      this.sumLabels[o].text = "Σ = " + sum.toFixed(2);
    }
 }
 
@@ -2207,8 +2223,8 @@ setMatrix( m, schedule )
       for ( var o = 0; o < 3; ++o )
          for ( var s = 0; s < 6; ++s )
          {
-            P.weights[o][s] = m[o][s];
-            this.weightControls[o][s].setValue( m[o][s] );
+            P.weights[o][s] = coefficientValue(m[o][s]);
+            this.weightControls[o][s].setValue(P.weights[o][s]);
          }
    }
    finally
@@ -2237,11 +2253,14 @@ schedulePreview( live )
       this.statusLabel.text = tr( "<b><font color=\"#cc2020\">Préparer le preview pour activer le calcul live.</font></b>", "<b><font color=\"#cc2020\">Prepare the preview to enable live updates.</font></b>" );
       return;
    }
-   // Live slider updates keep an already scheduled frame, so continuous motion
-   // cannot postpone all rendering until the mouse is released.
-   if ( live === true && this.timer.isRunning )
+   // Keep the first scheduled frame while input continues, instead of delaying
+   // every frame until the mouse stops. At most one follow-up frame is queued.
+   if ( this.previewRefreshing || this.rendering || this.checkingPreviewRange )
+   {
+      this.previewPending = true;
       return;
-   this.timer.stop();
+   }
+   if ( this.timer.isRunning ) return;
    this.timer.start();
 }
 
@@ -2259,8 +2278,15 @@ setClipLabel( low, high, n, prefix, transform )
 
 refreshPreview()
 {
-   if ( CACHE == null || this.checkingPreviewRange )
+   if ( CACHE == null ) return;
+   if ( this.previewRefreshing || this.rendering || this.checkingPreviewRange )
+   {
+      this.previewPending = true;
       return;
+   }
+   this.previewRefreshing = true;
+   this.previewPending = false;
+   this.timer.stop();
    var t0 = Date.now();
    try
    {
@@ -2277,6 +2303,15 @@ refreshPreview()
       console.criticalln( TITLE + " preview : " + errText(e) );
       if ( e && e.stack ) console.writeln( e.stack );
       this.statusLabel.text = tr( "<b>Erreur preview :</b> ", "<b>Preview error:</b> " ) + errText(e);
+   }
+   finally
+   {
+      this.previewRefreshing = false;
+      if ( this.previewPending )
+      {
+         this.previewPending = false;
+         this.schedulePreview();
+      }
    }
 }
 };
@@ -2320,3 +2355,4 @@ function main()
 }
 
 main();
+

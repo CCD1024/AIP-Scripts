@@ -1,5 +1,13 @@
 # Historique AIP-Scripts
 
+## SHORGB-AIP 1.03 — 7 novembre 2026
+
+- Coefficients sur deux décimales, de 0 à 3,00 ; curseurs et boutons -/+ au pas de 0,01. Les anciennes valeurs sont arrondies au centième à leur chargement pour correspondre à l’affichage.
+- Actualisation du preview pendant le déplacement des curseurs, avec regroupement des demandes et protection contre les rendus imbriqués.
+- Histogramme et calcul de sortie identiques à la version 1.02 ; aucune transformation supplémentaire de niveaux.
+- Offsets fins conservés au pas de 0,0001. Préférences, instances, menu CCD1024 et icône AIP conservés.
+- Version issue de l’essai 1.03-test2 validé par Philippe Bernhard. Contrôles français/anglais, rafraîchissements pendant un glissement et cohérence preview/sortie/histogramme vérifiés dans PixInsight 1.9.6 sur macOS.
+
 ## SHORGB-AIP 1.02 et SHOLuminance-AIP 0.6.2 — 7 novembre 2026
 
 - Attribution explicite du code réutilisé de Badassium238 1.2.3 (PreviewBox, findView, validId, errText), copyright et texte MIT intégral dans chaque script et les paquets.
@@ -34,3 +42,4 @@ Première version numérotée 1.00, reprenant la V0.2.28.
 - Preview et histogramme avec normalisation commune conforme à la sortie.
 - Comptage de tous les pixels dans l'histogramme de l'image finale.
 - Conservation des préférences des versions 0.2.x.
+
